@@ -1,0 +1,12 @@
+---
+- name: Perform Backup
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Create backup directory
+      file:
+        path: /backup
+        state: directory
+
+    - name: Backup important file
+      command: "cp /path/to/important/file /backup/file_backup"
