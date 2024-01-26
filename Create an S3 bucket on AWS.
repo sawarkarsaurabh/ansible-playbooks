@@ -1,0 +1,14 @@
+- name: Create S3 Bucket
+  hosts: localhost
+  tasks:
+    - name: Ensure AWS CLI is installed
+      command: aws --version
+      ignore_errors: yes
+      register: aws_check
+
+    - name: Install AWS CLI
+      command: pip install awscli
+      when: "'aws' not in aws_check.stdout"
+
+    - name: Create S3 Bucket
+      command: aws s3api create-bucket --bucket my-bucket-name --region us-east-1
