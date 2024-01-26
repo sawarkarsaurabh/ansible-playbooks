@@ -1,0 +1,10 @@
+---
+- name: Manage Cron Jobs
+  hosts: servers
+  tasks:
+    - name: Add a daily cron job
+      cron:
+        name: "Run Daily Task"
+        minute: 0
+        hour: 2
+        job: "/path/to/daily_script.sh"
