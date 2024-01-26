@@ -1,0 +1,24 @@
+---
+- name: Setup MySQL Database
+  hosts: db_servers
+  become: yes
+  tasks:
+    - name: Install MySQL server
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Secure MySQL installation
+      mysql_secure_installation:
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+        new_password: "{{ mysql_root_password }}"
+        validate_certs: no
+      when: mysql_secure_installation_required|default(true)
+
+    - name: Create a database
+      mysql_db:
+        name: my_database
+        state: present
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
