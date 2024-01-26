@@ -1,0 +1,8 @@
+---
+- name: Clone Git Repository
+  hosts: servers
+  tasks:
+    - name: Clone repository
+      git:
+        repo: https://github.com/your/repository.git
+        dest: /path/to/local/repository
