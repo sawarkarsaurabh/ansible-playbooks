@@ -1,0 +1,13 @@
+---
+- name: Update System Packages
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Update package cache
+      package_facts:
+        manager: auto
+      register: packages_updated
+
+    - name: Display updated packages
+      debug:
+        var: packages_updated.ansible_facts.packages
