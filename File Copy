@@ -1,0 +1,12 @@
+---
+- name: Copy Files
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Copy configuration file
+      copy:
+        src: /path/to/local/file.conf
+        dest: /etc/nginx/file.conf
+        owner: root
+        group: root
+        mode: '0644'
