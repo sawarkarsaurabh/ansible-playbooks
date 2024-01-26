@@ -1,0 +1,37 @@
+---
+- name: Deploy Multi-Tier Application
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Disable Load Balancer
+      command: /path/to/disable_load_balancer_script
+
+    - name: Deploy Web Tier
+      git:
+        repo: https://github.com/your/webapp.git
+        dest: /path/to/web/application
+        version: master
+      become: yes
+
+    - name: Deploy App Tier
+      git:
+        repo: https://github.com/your/app.git
+        dest: /path/to/app
+        version: master
+      become: yes
+
+    - name: Update Database Tier
+      command: /path/to/database_update_script
+      become: yes
+
+    - name: Restart Web and App Tiers
+      service:
+        name: "{{ item }}"
+        state: restarted
+      with_items:
+        - web_service
+        - app_service
+      become: yes
+
+    - name: Enable Load Balancer
+      command: /path/to/enable_load_balancer_script
