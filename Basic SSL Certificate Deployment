@@ -1,0 +1,14 @@
+---
+- name: Deploy SSL Certificate
+  hosts: web_servers
+  become: yes
+  tasks:
+    - name: Copy SSL certificate
+      copy:
+        src: /path/to/local/ssl_certificate.crt
+        dest: /etc/nginx/ssl_certificate.crt
+
+    - name: Copy private key
+      copy:
+        src: /path/to/local/private_key.key
+        dest: /etc/nginx/private_key.key
